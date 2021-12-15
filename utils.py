@@ -6,6 +6,8 @@ import pyautogui
 from pyautogui import press, typewrite, hotkey, click
 import pyperclip
 
+from configs import common_config
+
 def send_email(information):
     port = 587  # For starttls
     smtp_server = "smtp.gmail.com" #"outlook.office365.com"
@@ -23,20 +25,23 @@ def send_email(information):
     server.sendmail(sender_email, receiver_email_1, message)
     server.quit()
 
-def get_selling_info(config):
+def get_selling_info(config, commom_config = common_config):
     # resolve config
-    chrome_position = config["chrome_position"]
-    search_bar_position = config["search_bar_position"]
+    chrome_position = common_config["chrome_position"]
+    search_bar_position = common_config["search_bar_position"]
     sold_out_start = config["sold_out_start"]
     sold_out_end = config["sold_out_end"]
-    close_position = config["close_position"]
+    close_position = common_config["close_position"]
     url = str(config["url"].encode().decode())
     
     pyperclip.copy(url)
 
     # open chrome
     click(chrome_position)    
-    time.sleep(3) 
+    time.sleep(3)
+    # click(config["guest_mode"])    
+    # time.sleep(2)
+     
 
     # go to url
     click(search_bar_position)
